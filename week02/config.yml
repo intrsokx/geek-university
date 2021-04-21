@@ -1,0 +1,13 @@
+server:
+  name: week02
+  port: 8097
+
+db:
+  name:     mysql
+  user:     root
+  password: mysqlPass@123
+  port:     33060
+#
+#contacts:
+#  - name: i test
+#    email: test@test.com

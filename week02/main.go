@@ -1,27 +1,35 @@
 package main
 
 import (
-	"database/sql"
+	"github.com/gin-gonic/gin"
+	"github.com/intrsokx/geek-university/week02/config"
 	"github.com/intrsokx/geek-university/week02/handler"
 	"github.com/sirupsen/logrus"
 	"net/http"
 )
 
-func init() {
+func initLog() {
 	logrus.SetFormatter(&logrus.TextFormatter{
 		FullTimestamp:             true,
 		TimestampFormat:           "2006-01-02 15:04:00",
 	})
 	logrus.SetReportCaller(true)
+	logrus.SetLevel(logrus.DebugLevel)
+}
+
+func init() {
+	initLog()
+
+	config.InitConf("config.yml")
 }
 
 func main() {
-	logrus.Info("hello world")
-	_ = sql.ErrNoRows
+	e := gin.New()
+	e.Use(gin.Logger())
+	e.Use(gin.Recovery())
 
-	hd := handler.NewSingleHandler()
 
-	http.Handle("/get/users", hd)
+	e.Handle(http.MethodGet, "/get/users", handler.GetUsersHandler)
 
-	logrus.Error(http.ListenAndServe(":8080", nil))
+	logrus.Error(e.Run())
 }
