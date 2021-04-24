@@ -6,7 +6,10 @@ db:
   name:     mysql
   user:     root
   password: mysqlPass@123
-  port:     33060
+  database: test
+
+  table:
+    user: users
 #
 #contacts:
 #  - name: i test
