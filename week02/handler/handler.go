@@ -13,6 +13,7 @@ import (
 */
 func GetUsersHandler(c *gin.Context) {
 	users, err := dao.GetUsers()
+	//if errors.Is(err, sql.ErrNoRows) {}
 	if err != nil {
 		//%+v 打印错误信息及堆栈调用信息
 		logrus.Errorf("%+v", err)
